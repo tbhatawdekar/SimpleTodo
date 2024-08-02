@@ -2,6 +2,7 @@ import Link from "next/link";
 import CreateTodo from "./CreateTodo";
 import DeleteTodo from "./DeleteTodo";
 
+
 async function getTodos() {
     const result = await fetch(
         'http://127.0.0.1:8090/api/collections/todos/records?page=1&perPage=30',

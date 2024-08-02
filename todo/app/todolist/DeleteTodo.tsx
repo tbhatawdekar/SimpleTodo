@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 
 export default function DeleteTodo({ id }: { id: string }) {
-    const [item, setItem] = useState('');
+    const router = useRouter();
     const remove = async () => {
         await fetch(`http://127.0.0.1:8090/api/collections/todos/records/${id}`,
             {
@@ -12,6 +14,8 @@ export default function DeleteTodo({ id }: { id: string }) {
                     'Content-Type': 'application/json',
                 },
             });
+
+        router.refresh();
     }
     
     return (
