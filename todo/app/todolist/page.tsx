@@ -1,5 +1,7 @@
 import Link from "next/link";
 import CreateTodo from "./CreateTodo";
+import DeleteTodo from "./DeleteTodo";
+
 async function getTodos() {
     const result = await fetch(
         'http://127.0.0.1:8090/api/collections/todos/records?page=1&perPage=30',
@@ -19,15 +21,15 @@ export default async function todoList() {
             <ul>
             {todos?.map((todo) => {
                 return( 
-                    <li key="{todo.id}">
-                    <Todo key={todo.id} todo={todo} />
+                    <li key={todo.id} style={{ display: 'flex', alignItems: 'center' }}>
+                        <Todo todo={todo} />
+                        <DeleteTodo id={todo.id} /> 
                     </li>
                 ); //calls the Todo function
             })}
             </ul>
         </div>
         <CreateTodo />
-        <button>Add Todo</button>    
       </div>
     );
   }
