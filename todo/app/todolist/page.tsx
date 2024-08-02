@@ -1,6 +1,7 @@
 import Link from "next/link";
 import CreateTodo from "./CreateTodo";
 import DeleteTodo from "./DeleteTodo";
+import EditTodo from "./EditTodo";
 
 
 async function getTodos() {
@@ -13,6 +14,7 @@ async function getTodos() {
     return data?.items as any[];
 }
 
+
 export default async function todoList() {
     const todos = await getTodos();
     return (
@@ -24,6 +26,8 @@ export default async function todoList() {
                 return( 
                     <li key={todo.id} style={{ display: 'flex', alignItems: 'center' }}>
                         <Todo todo={todo} />
+                        <EditTodo todo={todo} /> 
+                        
                         <DeleteTodo id={todo.id} /> 
                     </li>
                 ); //calls the Todo function
@@ -39,9 +43,9 @@ export default async function todoList() {
     const { id, item } = todo || {};
     return (
         <Link href={`/todos/${id}`}>
-                <div>
-                    {item}
-                </div>
+            <div>
+                {item}
+            </div>
         </Link>
     );
   }
