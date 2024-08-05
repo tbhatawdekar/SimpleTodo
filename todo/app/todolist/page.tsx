@@ -1,17 +1,22 @@
+'use client'
+import { useRouter } from 'next/navigation'
 import Link from "next/link";
 import CreateTodo from "./CreateTodo";
 import DeleteTodo from "./DeleteTodo";
-import EditTodo from "./EditTodo";
+import { useEffect, useState } from 'react';
 
 
 async function getTodos() {
+    const router = useRouter()
     const result = await fetch(
         'http://127.0.0.1:8090/api/collections/todos/records?page=1&perPage=30',
         { cache: 'no-store' }
     );
     const data = await result.json();
     console.log(data); 
+    
     return data?.items as any[];
+    
 }
 
 
@@ -19,15 +24,14 @@ export default async function todoList() {
     const todos = await getTodos();
     return (
       <div>
-        <h1>TodoList</h1>
+        <h1>SimpleTodo</h1>
         <div>
             <ul>
             {todos?.map((todo) => {
                 return( 
                     <li key={todo.id} style={{ display: 'flex', alignItems: 'center' }}>
                         <Todo todo={todo} />
-                        <EditTodo todo={todo} /> 
-                        
+                        {/* <EditTodo todo={todo} />  */}
                         <DeleteTodo id={todo.id} /> 
                     </li>
                 ); //calls the Todo function
@@ -42,10 +46,11 @@ export default async function todoList() {
   function Todo( { todo }: any) {
     const { id, item } = todo || {};
     return (
-        <Link href={`/todos/${id}`}>
-            <div>
-                {item}
-            </div>
+        <div>
+            {item}
+        <Link href={`/todolist/${id}`}>
+            <button>Edit Todo</button>
         </Link>
+        </div>
     );
   }
