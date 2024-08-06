@@ -1,1 +1,1 @@
-1 hour simple todolist app.
+Simple todolist app.
